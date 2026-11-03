@@ -1,60 +1,68 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ada yang ingin kusampaikan</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; min-height: 100vh; display: grid; place-items: center;
-      padding: 24px; background: #f3f6f1; color: #26352c;
-      font-family: Arial, sans-serif;
-    }
-    .card {
-      width: min(100%, 430px); padding: 34px 26px; text-align: center;
-      background: #fff; border: 1px solid #e3eae1; border-radius: 22px;
-      box-shadow: 0 12px 35px rgba(30, 55, 35, .08);
-    }
-    .eyebrow { color: #718675; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
-    h1 { margin: 16px 0; font-size: 32px; font-weight: 600; }
-    p { color: #657269; line-height: 1.7; }
-    .question { margin: 24px 0; color: #34473a; font-weight: 600; }
-    button {
-      width: 100%; border: 0; border-radius: 12px; padding: 14px;
-      margin: 7px 0; font-size: 15px; cursor: pointer;
-    }
-    .yes { background: #526f5b; color: white; }
-    .later { background: #edf2ec; color: #405247; }
-    #answer { display: none; margin-top: 18px; padding: 14px; border-radius: 12px; background: #f3f6f1; }
-    small { display: block; margin-top: 16px; color: #89958c; line-height: 1.5; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f7f5f2">
+<title>Ada yang mau aku tanyain</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:grid;place-items:center;padding:22px;
+    font-family:Arial,Helvetica,sans-serif;background:#f7f5f2;color:#292724}
+  .card{width:min(100%,430px);background:#fff;border:1px solid #ebe7e1;border-radius:22px;
+    padding:30px 24px;box-shadow:0 14px 45px #30251512;text-align:center}
+  .tag{display:inline-block;padding:7px 12px;border-radius:30px;background:#f3eee8;
+    color:#786b5c;font-size:12px;letter-spacing:.4px}
+  h1{font-size:27px;line-height:1.25;margin:22px 0 12px;font-weight:700}
+  p{font-size:15px;line-height:1.65;color:#716c65;margin:0 auto 22px}
+  .question{font-size:17px;color:#302d29;font-weight:600;margin:24px 0 16px}
+  .choices{display:grid;gap:10px}
+  button{width:100%;border:0;border-radius:12px;padding:14px 16px;font-size:15px;
+    font-weight:700;cursor:pointer;transition:transform .15s,background .15s}
+  button:active{transform:scale(.98)}
+  .yes{background:#33302c;color:white}
+  .maybe{background:#eeeae5;color:#37332e}
+  .no{background:transparent;color:#77716a;border:1px solid #e8e3dc}
+  .note{font-size:11px;color:#a19a91;margin-top:18px}
+  .result{display:none;margin-top:18px;padding:15px;border-radius:13px;background:#f6f3ef;
+    font-size:14px;line-height:1.55;color:#4b453e}
+  .again{display:none;margin-top:12px;background:transparent;color:#766b5e;text-decoration:underline}
+  .heart{font-size:25px;margin-bottom:5px}
+</style>
 </head>
 <body>
-  <main class="card">
-    <div class="eyebrow">Ada yang ingin kusampaikan</div>
-    <h1>Hai, kamu.</h1>
-    <p>Aku senang setiap kali kita ngobrol. Sederhana, tapi entah kenapa selalu jadi bagian menyenangkan dari hariku.</p>
-    <div class="question">Aku ingin mengenalmu lebih dekat. Kamu mau mencoba jalan bareng aku?</div>
-    <button class="yes" onclick="showAnswer('yes')">Iya, boleh</button>
-    <button class="later" onclick="showAnswer('later')">Aku pikir dulu</button>
-    <div id="answer"></div>
-    <small>Jawabanmu akan membuka WhatsApp dengan pesan yang sudah disiapkan. Tekan Kirim di WhatsApp untuk mengirimkannya.</small>
-  </main>
-  <script>
-    function showAnswer(choice) {
-      const yes = choice === 'yes';
-      const answer = yes ? 'Iya, boleh' : 'Aku pikir dulu';
-      const box = document.getElementById('answer');
-      box.style.display = 'block';
-      box.textContent = yes
-        ? 'Senang dengarnya. Kalau kamu nyaman, kita bisa mulai dengan ngobrol lebih banyak.'
-        : 'Tidak apa-apa. Ambil waktu yang kamu perlukan. Aku menghargai keputusanmu.';
-      const phone = '6281574827886';
-      const message = `Jawabanku: ${answer}. Aku menjawab lewat halaman yang kamu kirim.`;
-      const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-      window.open(whatsappUrl, '_blank');
-    }
-  </script>
+<main class="card">
+  <span class="tag">SEDIKIT PERTANYAAN</span>
+  <div class="heart">✳</div>
+  <h1>Aku mau ngomong sesuatu.</h1>
+  <p>Aku nyaman ngobrol sama kamu, dan belakangan ini aku mulai punya rasa lebih dari sekadar teman.</p>
+  <div class="question">Kamu mau nggak kita coba jalanin hubungan yang lebih dekat?</div>
+  <div class="choices" id="choices">
+    <button class="yes" onclick="sendAnswer('Iya, aku mau 😊')">Iya, aku mau</button>
+    <button class="maybe" onclick="sendAnswer('Aku mau kenal lebih dekat dulu')">Kenal lebih dekat dulu</button>
+    <button class="no" onclick="sendAnswer('Maaf, aku belum punya perasaan yang sama')">Maaf, belum bisa</button>
+  </div>
+  <div class="result" id="result"></div>
+  <button class="again" id="again" onclick="resetChoices()">Pilih jawaban lain</button>
+  <div class="note">Apa pun jawabannya, nggak perlu merasa terbebani.</div>
+</main>
+<script>
+const nomorWA = "6281574827886"; // Ganti jika ingin memakai nomor WhatsApp lain.
+function sendAnswer(answer){
+  const pesan = "Hai, ini jawabanku untuk pertanyaan kamu: " + answer;
+  document.getElementById("result").style.display = "block";
+  document.getElementById("result").textContent =
+    "Jawaban kamu sudah disiapkan. WhatsApp akan terbuka; tekan tombol Kirim di sana ya.";
+  document.getElementById("again").style.display = "block";
+  document.getElementById("choices").style.display = "none";
+  const url = "https://wa.me/" + nomorWA + "?text=" + encodeURIComponent(pesan);
+  window.open(url, "_blank");
+}
+function resetChoices(){
+  document.getElementById("choices").style.display = "grid";
+  document.getElementById("result").style.display = "none";
+  document.getElementById("again").style.display = "none";
+}
+</script>
 </body>
 </html>
